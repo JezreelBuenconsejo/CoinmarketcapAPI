@@ -12,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-const apiBaseURL = "https://pro-api.coinmarketcap.com/v1"
+const apiBaseURL = "https://pro-api.coinmarketcap.com/"
 
 func proxyRequest(w http.ResponseWriter, r *http.Request) {
 	endpoint := r.URL.Path[len("/"):]
