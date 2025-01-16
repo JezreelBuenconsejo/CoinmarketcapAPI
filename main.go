@@ -15,7 +15,7 @@ import (
 const apiBaseURL = "https://pro-api.coinmarketcap.com/v1"
 
 func proxyRequest(w http.ResponseWriter, r *http.Request) {
-	endpoint := r.URL.Path[len("/api/"):]
+	endpoint := r.URL.Path[len("/"):]
 	if endpoint == "" {
 		http.Error(w, "Missing API endpoint in path", http.StatusBadRequest)
 		return
@@ -91,7 +91,7 @@ func init() {
 }
 
 func main() {
-	http.HandleFunc("/api/", proxyRequest)
+	http.HandleFunc("/", proxyRequest)
 
 	port := os.Getenv("PORT")
 	if port == "" {
