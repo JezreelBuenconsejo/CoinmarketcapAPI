@@ -1,6 +1,7 @@
 package main
 
 import (
+	"coinmarketcapapi/middleware"
 	"coinmarketcapapi/utils"
 	"fmt"
 	"io"
@@ -91,7 +92,10 @@ func init() {
 }
 
 func main() {
-	http.HandleFunc("/", proxyRequest)
+	http.HandleFunc("/v1/", proxyRequest)
+
+	// Wrap with CORS middleware
+	handler := middleware.CorsMiddleware(http.DefaultServeMux)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -99,5 +103,5 @@ func main() {
 	}
 
 	log.Printf("Server running on http://localhost:%s", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
